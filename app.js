@@ -15,6 +15,7 @@ function playSound(e) {
 const keys = document.querySelectorAll('.key');
 keys.forEach(key => key.addEventListener('transitionend', removeTransition));
 
+// Remove transition function
 function removeTransition(e) {
     if (e.propertyName !== 'transform') return; // skip it if it's not a transform
     this.classList.remove('playing');
