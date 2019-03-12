@@ -1,22 +1,30 @@
-// Add event listener
-window.addEventListener('keydown', playSound); 
-
 // Play sound
 function playSound(e) {
-    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    if (e.keyCode) { // if keyboard button, get keycode
+        dataKey = e.keyCode; 
+    } else { // else get dataset key from mouse press
+        dataKey = e.srcElement.dataset.key;
+    }
+    const audio = document.querySelector(`audio[data-key="${dataKey}"]`);
+    const key = document.querySelector(`.key[data-key="${dataKey}"]`);
     if (!audio) return; // stop the function from running
     audio.currentTime = 0; // rewind to start
     audio.play();
     key.classList.add('playing');
 }
 
-// Remove transition effects after transition end
+// Add event listeners & remove transition effects after transition end
 const keys = document.querySelectorAll('.key');
 keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+window.addEventListener('keydown', playSound);
+keys.forEach(key => key.addEventListener('click', playSound));
 
 // Remove transition function
 function removeTransition(e) {
     if (e.propertyName !== 'transform') return; // skip it if it's not a transform
     this.classList.remove('playing');
 }
+
+
+ 
