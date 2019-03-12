@@ -7,6 +7,7 @@ function playSound(e) {
     }
     const audio = document.querySelector(`audio[data-key="${dataKey}"]`);
     const key = document.querySelector(`.key[data-key="${dataKey}"]`);
+    
     if (!audio) return; // stop the function from running
     audio.currentTime = 0; // rewind to start
     audio.play();
@@ -15,14 +16,15 @@ function playSound(e) {
 
 // Add event listeners & remove transition effects after transition end
 const keys = document.querySelectorAll('.key');
-keys.forEach(key => key.addEventListener('transitionend', removeTransition));
-
+keys.forEach(key => {
+    key.addEventListener('transitionend', removeTransition);
+    key.addEventListener('click', playSound);
+});
 window.addEventListener('keydown', playSound);
-keys.forEach(key => key.addEventListener('click', playSound));
+
 
 // Remove transition function
-function removeTransition(e) {
-    if (e.propertyName !== 'transform') return; // skip it if it's not a transform
+function removeTransition() {
     this.classList.remove('playing');
 }
 
