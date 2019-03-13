@@ -43,6 +43,11 @@ body,html {
 kbd {
   display: block;
   font-size: 4rem;
+  pointer-events: none;
+}
+
+.key span {
+  pointer-events: none;
 }
 
 .sound {

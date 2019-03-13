@@ -2,9 +2,7 @@
 function playSound(e) {
     if (e.keyCode) { // if keyboard button, get keycode
         dataKey = e.keyCode; 
-    } else if (e.target.parentElement.dataset.key) {
-        dataKey = e.target.parentElement.dataset.key; 
-    } else {
+    } else { // else get dataset key from mouse press
         dataKey = e.target.dataset.key;
     }
     const audio = document.querySelector(`audio[data-key="${dataKey}"]`);
